@@ -17,7 +17,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<T extends readonly any[]> =  {
+  [key in T[number]]: key;
+};
 
 /* _____________ 测试用例 _____________ */
 import { Equal, Expect } from '../../utils'
