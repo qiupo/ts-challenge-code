@@ -18,13 +18,21 @@ type getPa3<T extends unknown[]> = T extends [infer F, ...infer R]
   : never; //获取数组类型中的值为联合类型
 type x3 = getPa3<arr3>;
 
+type nullExpress={
+    "true":true,
+    "false":false,
+    "null":null
+}
+
 type getPa2<T extends unknown[],K=T[number]> = {
   [key in K extends keyof any
     ? K
     : K extends boolean | undefined
     ? `${K}`
-    : never]: key;
+    : never]: key extends keyof nullExpress
+    ? nullExpress[key]
+    : key;
 };
 
-type arr2 = ["5", 6, true, symbol,null,undefined];
+type arr2 = ["5", 6, true, false,symbol,null,undefined,'null'];
 type x2 = getPa2<arr2>;

@@ -19,7 +19,6 @@
 
 type Concat<T, U> = any
 
-
 /* _____________ 测试用例 _____________ */
 import { Equal, Expect } from '../../utils'
 
