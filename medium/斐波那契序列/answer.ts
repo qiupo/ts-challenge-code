@@ -7,12 +7,12 @@ type one = minusOne<4>;
 
 type addOne<
   T extends number,
-  K extends unknown[] = [unknown]
+  K extends unknown[] = []
 > = K["length"] extends T
   ? [unknown, ...K]["length"]
   : addOne<T, [unknown, ...K]>; //加一
   
-type oo = addOne<4>;
+type oo = addOne<0>;
 
 type numTotuple<T extends number, K extends unknown[]=[]> = T extends K["length"]
   ? K
@@ -27,6 +27,17 @@ type help<
   U extends number    // 当前序列
 > = U extends T ? K["length"] : help<T, [...K, ...R], K, addOne<U>>; //斐波那契数列帮助函数
 
+
+
+/* _____________ 你的代码 _____________ */
+
 type Fibonacci<T extends number> = help<T, [unknown], [], 1>;
 
-type xx = Fibonacci<3>; type xx2 = Fibonacci<8>;
+
+/* _____________ 测试用例 _____________ */
+import { Equal, Expect } from '../../utils'
+
+type cases = [
+  Expect<Equal<Fibonacci<3>, 2>>,
+  Expect<Equal<Fibonacci<8>, 21>>,
+]

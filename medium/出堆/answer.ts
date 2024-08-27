@@ -1,15 +1,18 @@
-type Pop<T extends any[]> = T extends [...infer L, infer R] ? L : never;
+/* _____________ 你的代码 _____________ */
 
-type testPop = Pop<[1,2,'3','4']>
+type Pop<T extends any[]> = T extends [...infer L, any] ? L : never;
 
-type Shift<T extends any[]> = T extends [infer L, ...infer R] ? R : never;
-
-type testShift = Shift<[1,2,'3','4']>
+type Shift<T extends any[]> = T extends [any, ...infer R] ? R : never;
 
 type Unshift2<T extends any[],U> = [U,...T]
 
-type testUnshift = Unshift2<[1,2,'3','4'],22>
-
 type Push2<T extends any[],U> = [...T,U];
 
-type testPush = Push2<[1,2,'3','4'],77>
+
+/* _____________ 测试用例 _____________ */
+import { Equal, Expect } from '../../utils'
+
+type cases = [
+  Expect<Equal<Pop<[3, 2, 1]>, [3, 2]>>,
+  Expect<Equal<Pop<['a', 'b', 'c', 'd', ]>, ['a', 'b', 'c']>>,
+]
