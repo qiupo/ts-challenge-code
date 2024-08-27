@@ -37,9 +37,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type Chainable<R = {}> = {
-  option<U extends string, V>(key: U, value: V): Chainable<{ [K in keyof R | U]: K extends keyof R ? R[K] : V }>
-  get(): R
+type Chainable = {
+  option(key: string, value: any): any
+  get(): any
 }
 
 
