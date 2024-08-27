@@ -1,17 +1,23 @@
-type Equal<L, R> = (<T>() => T extends R ? 1 : 2) extends <T>() => T extends L
-  ? 1
-  : 2
-  ? true
-  : false;
-type Includes<T extends readonly any[], U> = T extends [infer F, ...infer S]
-  ? Equal<F, U> extends true
-    ? true
-    : Includes<S, U>
-  : false;
 
-type testEqual = Includes<[{ a: "A" }], { readonly a: "A" }>;
-type testEqual1 = Includes<["a", "b"], "a">;
-type testEqual2 = Includes<["a", "b", 1], "c">;
-type x = <T>() => T extends "a" ? true : false;
-type y = <T>() => T extends "b" ? true : false;
-type z = x extends y ? true : false;
+/* _____________ 你的代码 _____________ */
+
+type Includes<T extends readonly any[], U> = T extends [infer First, ...infer Rest] ? Equal<First, U> extends true ? true : Includes<Rest, U> : false
+
+
+/* _____________ 测试用例 _____________ */
+import { Equal, Expect } from '../../utils'
+
+type cases = [
+  Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Kars'>, true>>,
+  Expect<Equal<Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'>, false>>,
+  Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 7>, true>>,
+  Expect<Equal<Includes<[1, 2, 3, 5, 6, 7], 4>, false>>,
+  Expect<Equal<Includes<[1, 2, 3], 2>, true>>,
+  Expect<Equal<Includes<[1, 2, 3], 1>, true>>,
+  Expect<Equal<Includes<[{}], { a: 'A' }>, false>>,
+  Expect<Equal<Includes<[boolean, 2, 3, 5, 6, 7], false>, false>>,
+  Expect<Equal<Includes<[true, 2, 3, 5, 6, 7], boolean>, false>>,
+  Expect<Equal<Includes<[false, 2, 3, 5, 6, 7], false>, true>>,
+  Expect<Equal<Includes<[{ a: 'A' }], { readonly a: 'A' }>, false>>,
+  Expect<Equal<Includes<[{ readonly a: 'A' }], { a: 'A' }>, false>>,
+]
