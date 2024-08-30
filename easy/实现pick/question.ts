@@ -28,7 +28,9 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyPick<T, U> = any;
+type MyPick<T, U extends keyof T> = {
+  [K in U]: T[K]; 
+};
 
 /* _____________ 测试用例 _____________ */
 import { Equal, Expect } from "../../utils";

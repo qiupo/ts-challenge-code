@@ -12,7 +12,7 @@ type addOne<
   ? [unknown, ...K]["length"]
   : addOne<T, [unknown, ...K]>; //加一
   
-type oo = addOne<0>;
+type oo = addOne<2>;
 
 type numTotuple<T extends number, K extends unknown[]=[]> = T extends K["length"]
   ? K

@@ -1,7 +1,11 @@
 
 /* _____________ 你的代码 _____________ */
 
-type MyPick<T, U> = {[K in keyof T as K extends U ? K : never]: T[K]};
+// type MyPick<T, U> = {[K in keyof T as K extends U ? K : never]: T[K]};
+
+type MyPick<T, U extends keyof T> = {
+  [K in U]: T[K]; 
+};
 
 /* _____________ 测试用例 _____________ */
 import { Equal, Expect } from "../../utils";
