@@ -4,7 +4,7 @@ type FunctionPropertyNever<T> = {
 type NonFunctionPropertyNames<T> = {
     [K in keyof T as T[K] extends Function ? never : K]: T[K]
 }
-type dataType = NonFunctionPropertyNames<FunctionPropertyNever<A>>
+type dataType = NonFunctionPropertyNames<FunctionPropertyNever<test>>
 
 class test {
 
